@@ -23,9 +23,8 @@ public class UserOperations {
         try (BufferedReader br = new BufferedReader(new FileReader(datasetPath))) {
             while ((line = br.readLine()) != null) {
                 String[] lineData = line.split(cvsSplitBy);
-                if (!lineData[0].contains("DNI")) {
-                    operationType.createLine(lineData, userList, csvLines);
-                }
+
+                operationType.createLine(lineData, userList, csvLines);
 
             }
         }

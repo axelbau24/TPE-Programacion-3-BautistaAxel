@@ -5,6 +5,7 @@ public class Main {
     final static String addPath = "C:/Datasets/Tests/salidaalta"; // Sin .csv
     final static String searchPath = "C:/Datasets/Tests/salidabusqueda"; // Sin .csv
     final static String searchInputPath = "C:/Datasets/dataset_busqueda_10000.csv";
+    final static String insertInputPath = "C:/Datasets/dataset_insert_10000.csv";
 
     public static void main(String[] args) {
 
@@ -48,9 +49,13 @@ public class Main {
         UserOperations csv = new UserOperations(listType);
         String ext = ".csv";
 
-        csv.readCSV(new OperationAdd(), dataSetPath);
-        csv.writeData(addPath + id + ext);
+        csv.readCSV(new OperationLoad(), dataSetPath); // Se hace la precarga
+
         csv.readCSV(new OperationSearch(), searchInputPath);
         csv.writeData(searchPath + id + ext);
+        csv.readCSV(new OperationAdd(), insertInputPath);
+        csv.writeData(addPath + id + ext);
     }
+
+
 }
