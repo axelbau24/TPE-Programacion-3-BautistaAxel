@@ -1,5 +1,5 @@
 
-public class Usuario {
+public class Usuario implements Comparable<Usuario>{
 
     private LinkedListBeginning gustos;
     private int id;
@@ -35,5 +35,9 @@ public class Usuario {
 
     public boolean equals(Object obj) {
         return ((Usuario) obj).id == id;
+    }
+
+    public int compareTo(Usuario o) {
+        return id - o.getId();
     }
 }

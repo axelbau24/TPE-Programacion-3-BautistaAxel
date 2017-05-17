@@ -1,9 +1,9 @@
 
 public class ArrayList implements List {
 
-    private Object[] data;
-    private int size;
-    private int initialSize;
+    protected Object[] data;
+    protected int size;
+    protected int initialSize;
 
     public ArrayList() {
         initialSize = 10000;
@@ -15,6 +15,7 @@ public class ArrayList implements List {
      * Agrega un Object a la lista, si el tamaño de la lista supera del limite inicial (10000)
      * se crea un nuevo arreglo con el doble de su tamaño actual.
      * Si no, se escribe el valor sobre el arreglo actual.
+     *
      * @param value Valor a agregar
      */
     public void add(Object value) {
@@ -32,6 +33,7 @@ public class ArrayList implements List {
 
     /**
      * Devuelve un objeto en la posicion i
+     *
      * @param index posicion del objeto en la lista.
      * @return
      */
@@ -41,6 +43,7 @@ public class ArrayList implements List {
 
     /**
      * Comprueba si la lista esta vacia
+     *
      * @return Si esta vacia o no.
      */
     public boolean isEmpty() {
@@ -49,6 +52,7 @@ public class ArrayList implements List {
 
     /**
      * Devuelve el tamaño actual de la lista
+     *
      * @return tamaño de la lista.
      */
     public int size() {
@@ -68,6 +72,7 @@ public class ArrayList implements List {
 
     /**
      * Elimina de la lista el elemento en la posicion i
+     *
      * @param index Posicion del elemento a eliminar
      */
     public void removeAt(int index) {
@@ -77,6 +82,7 @@ public class ArrayList implements List {
     /**
      * Corrimiento hacia la izquierda del arreglo utilizado por la lista,
      * es utilizado para eliminar valores de esta.
+     *
      * @param index Posicion donde se hara el corrimiento
      */
     private void deleteValue(int index) {
@@ -88,10 +94,11 @@ public class ArrayList implements List {
 
     /**
      * Comprueba si un Object especifico existe en la lista
+     *
      * @param o Object a comprobar
      * @return Si existe o no.
      */
-    public boolean contains(Object o){
+    public boolean contains(Object o) {
         int i = 0;
         while (i < size() && !data[i].equals(o)) i++;
         return i < size();
@@ -101,7 +108,7 @@ public class ArrayList implements List {
      * Elimina todos los elementos de la lista, reiniciando el arreglo contenedor de los datos
      * y cambiando el tamaño de la lista a 0.
      */
-    public void clear(){
+    public void clear() {
         data = new Object[initialSize];
         size = 0;
     }

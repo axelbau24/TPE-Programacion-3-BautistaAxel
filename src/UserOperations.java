@@ -13,8 +13,9 @@ public class UserOperations {
     /**
      * Metodo encargado de leer archivos CSV, cada linea se ira guardando en una lista
      * y se realiza una operacion sobre esta.
+     *
      * @param operationType Tipo de operacion a realizar (busqueda o inserciones)
-     * @param datasetPath Ruta del archivo CSV a leer.
+     * @param datasetPath   Ruta del archivo CSV a leer.
      */
     public void readCSV(OperationType operationType, String datasetPath) {
         String line;
@@ -23,9 +24,9 @@ public class UserOperations {
         try (BufferedReader br = new BufferedReader(new FileReader(datasetPath))) {
             while ((line = br.readLine()) != null) {
                 String[] lineData = line.split(cvsSplitBy);
-
-                operationType.createLine(lineData, userList, csvLines);
-
+                if (!lineData[0].contains("DNI")) {
+                    operationType.createLine(lineData, userList, csvLines);
+                }
             }
         }
         catch (IOException e) {
@@ -35,10 +36,10 @@ public class UserOperations {
 
     /**
      * Escribe los datos que existen en la lista "csvLines" en un archivo especifico
+     *
      * @param path Ruta a crear para el archivo.
      */
     public void writeData(String path) {
-
         BufferedWriter bw = null;
         try {
             File file = new File(path);
