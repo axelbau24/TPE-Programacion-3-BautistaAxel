@@ -8,14 +8,18 @@ public class Main {
 
     public static void main(String[] args) {
 
+
         String dataSet500 = "C:/Datasets/dataset_500000.csv";
         String dataSet1m = "C:/Datasets/dataset_1000000.csv";
         String dataSet3m = "C:/Datasets/dataset_3000000.csv";
 
-        // Pruebas con ArrayList y Dataset 500 mil
-        realizarPrueba(new ArrayListBinary(), searchInputPath, dataSet3m, "_AL_500");
-        // Pruebas con ArrayList y Dataset 3 millones
-        realizarPrueba(new ArrayListBinary(), dataSet3m, searchInputPath, "_AL_3M");
+        // Pruebas con ArrayList con búsqueda binaria
+        // Se agregan 10 mil usuarios y se realizan 3 millones de búsquedas
+
+        realizarPrueba(new ArrayListBinary(), insertInputPath, dataSet3m, "_AL_500");
+
+        // Se agregan 3 millones de  usuarios y se realizan 10 mil de búsquedas
+        realizarPrueba(new ArrayListBinary(), dataSet3m, insertInputPath, "_AL_3M");
 
     }
 
@@ -25,6 +29,7 @@ public class Main {
      *
      * @param listType    Tipo de lista a utilizar
      * @param dataSetPath Ruta del dataset de usuarios
+     * @param searchDataset Ruta del dataset de donde se realizaran busquedas.
      * @param id          Identificador agregado al final del nombre del archivo para saber que operacion fue realizada
      */
     public static void realizarPrueba(ArrayListBinary listType, String dataSetPath, String searchDataset,String id) {
