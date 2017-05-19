@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class Main {
 
@@ -27,12 +28,12 @@ public class Main {
      * Se encarga de realizar las pruebas completas y crear los archivos de salida de
      * insercion y busqueda necesarios
      *
-     * @param listType    Tipo de lista a utilizar
-     * @param dataSetPath Ruta del dataset de usuarios
+     * @param listType      Tipo de lista a utilizar
+     * @param dataSetPath   Ruta del dataset de usuarios
      * @param searchDataset Ruta del dataset de donde se realizaran busquedas.
-     * @param id          Identificador agregado al final del nombre del archivo para saber que operacion fue realizada
+     * @param id            Identificador agregado al final del nombre del archivo para saber que operacion fue realizada
      */
-    public static void realizarPrueba(ArrayListBinary listType, String dataSetPath, String searchDataset,String id) {
+    public static void realizarPrueba(ArrayListBinary listType, String dataSetPath, String searchDataset, String id) {
         UserOperations csv = new UserOperations(listType);
         String ext = ".csv";
 
@@ -41,6 +42,5 @@ public class Main {
         csv.readCSV(new OperationSearch(), searchDataset);
         csv.writeData(searchPath + id + ext);
     }
-
-
+    
 }
