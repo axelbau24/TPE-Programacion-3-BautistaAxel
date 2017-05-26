@@ -14,33 +14,67 @@ public class Main {
         String dataSet1m = "C:/Datasets/dataset_1000000.csv";
         String dataSet3m = "C:/Datasets/dataset_3000000.csv";
 
-        // Pruebas con ArrayList con búsqueda binaria
-        // Se agregan 10 mil usuarios y se realizan 3 millones de búsquedas
+        GrafoGustos grafo = new GrafoGustos();
 
-        realizarPrueba(new ArrayListBinary(), insertInputPath, dataSet3m, "_AL_500");
+        Usuario u1 = new Usuario(new String[]{"21444758", "Tenis", "Futbol"});
+        Usuario u2 = new Usuario(new String[]{"5487866", "Futbol"});
+        Usuario u3 = new Usuario(new String[]{"54788865", "Futbol", "Tenis", "Golf", "Handball"});
+        Usuario u4 = new Usuario(new String[]{"67545565", "Tenis", "Futbol", "Golf", "Equitacion", "Handball"});
+        Usuario u5 = new Usuario(new String[]{"65324548", "Equitacion", "Handball"});
 
-        // Se agregan 3 millones de  usuarios y se realizan 10 mil de búsquedas
-        realizarPrueba(new ArrayListBinary(), dataSet3m, insertInputPath, "_AL_3M");
+        grafo.addUsuario(Integer.toString(u1.getId()));
+        grafo.addUsuario(Integer.toString(u2.getId()));
+        grafo.addUsuario(Integer.toString(u3.getId()));
+        grafo.addUsuario(Integer.toString(u4.getId()));
+        grafo.addUsuario(Integer.toString(u5.getId()));
+
+        for (int i = 0; i < u1.getGustos().size(); i++) {
+            String gusto = u1.getGustos().at(i).toString();
+            grafo.addGusto(gusto);
+            grafo.insertarArista(Integer.toString(u1.getId()), gusto);
+        }
+
+        for (int i = 0; i < u2.getGustos().size(); i++) {
+            String gusto = u2.getGustos().at(i).toString();
+            grafo.addGusto(gusto);
+            grafo.insertarArista(Integer.toString(u2.getId()), gusto);
+        }
+
+        for (int i = 0; i < u3.getGustos().size(); i++) {
+            String gusto = u3.getGustos().at(i).toString();
+            grafo.addGusto(gusto);
+            grafo.insertarArista(Integer.toString(u3.getId()), gusto);
+        }
+
+        for (int i = 0; i < u4.getGustos().size(); i++) {
+            String gusto = u4.getGustos().at(i).toString();
+            grafo.addGusto(gusto);
+            grafo.insertarArista(Integer.toString(u4.getId()), gusto);
+        }
+
+        for (int i = 0; i < u5.getGustos().size(); i++) {
+            String gusto = u5.getGustos().at(i).toString();
+            grafo.addGusto(gusto);
+            grafo.insertarArista(Integer.toString(u5.getId()), gusto);
+        }
+
+
+       // System.out.println(grafo.getLejano("5487866"));
+
+
+      //  realizarPrueba(grafo, insertInputPath);
+        for (int i = 0; i < grafo.personasGustoComun("65324548").size(); i++) {
+            System.out.println(grafo.personasGustoComun("65324548").at(i));
+        };
+       // System.out.println(grafo.getLejano("5487866"));
+    }
+
+    public static void realizarPrueba(GrafoGustos graph, String dataSetPath) {
+        UserOperations csv = new UserOperations(graph);
+
+        csv.readCSV(dataSetPath); // Se agregan los usuarios al grafo
 
     }
 
-    /**
-     * Se encarga de realizar las pruebas completas y crear los archivos de salida de
-     * insercion y busqueda necesarios
-     *
-     * @param listType      Tipo de lista a utilizar
-     * @param dataSetPath   Ruta del dataset de usuarios
-     * @param searchDataset Ruta del dataset de donde se realizaran busquedas.
-     * @param id            Identificador agregado al final del nombre del archivo para saber que operacion fue realizada
-     */
-    public static void realizarPrueba(ArrayListBinary listType, String dataSetPath, String searchDataset, String id) {
-        UserOperations csv = new UserOperations(listType);
-        String ext = ".csv";
 
-        csv.readCSV(new OperationLoad(), dataSetPath); // Se hace la precarga
-        MergeSort.sort(listType);
-        csv.readCSV(new OperationSearch(), searchDataset);
-        csv.writeData(searchPath + id + ext);
-    }
-    
 }

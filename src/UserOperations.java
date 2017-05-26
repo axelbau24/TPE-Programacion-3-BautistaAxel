@@ -2,31 +2,26 @@ import java.io.*;
 
 public class UserOperations {
 
-    private List userList;
-    private ArrayList csvLines;
+    private GrafoGustos graph;
 
-    public UserOperations(List testList) {
-        csvLines = new ArrayList();
-        userList = testList;
+    public UserOperations(GrafoGustos graph) {
+        this.graph = graph;
     }
 
     /**
      * Metodo encargado de leer archivos CSV, cada linea se ira guardando en una lista
      * y se realiza una operacion sobre esta.
      *
-     * @param operationType Tipo de operacion a realizar (busqueda o inserciones)
      * @param datasetPath   Ruta del archivo CSV a leer.
      */
-    public void readCSV(OperationType operationType, String datasetPath) {
+    public void readCSV(String datasetPath) {
         String line;
         String cvsSplitBy = ";";
 
         try (BufferedReader br = new BufferedReader(new FileReader(datasetPath))) {
             while ((line = br.readLine()) != null) {
                 String[] lineData = line.split(cvsSplitBy);
-                if (!lineData[0].contains("DNI")) {
-                    operationType.createLine(lineData, userList, csvLines);
-                }
+                addUser(lineData);
             }
         }
         catch (IOException e) {
@@ -34,39 +29,22 @@ public class UserOperations {
         }
     }
 
-    /**
-     * Escribe los datos que existen en la lista "csvLines" en un archivo especifico
-     *
-     * @param path Ruta a crear para el archivo.
-     */
-    public void writeData(String path) {
-        BufferedWriter bw = null;
-        try {
-            File file = new File(path);
-            if (!file.exists()) file.createNewFile();
+    public void addUser(String[] data) {
+        if (!data[0].contains("DNI")) {
 
-            FileWriter fw = new FileWriter(file);
-            bw = new BufferedWriter(fw);
+            Usuario u = new Usuario(data);
+            String userId = Integer.toString(u.getId());
+            graph.addUsuario(userId);
 
-            for (int i = 0; i < csvLines.size(); i++) {
-                String contenidoLinea = (String) csvLines.at(i);
-                bw.write(contenidoLinea);
-                bw.newLine();
+            LinkedList gustos = u.getGustos();
+
+            for (int i = 0; i < gustos.size(); i++) {
+                String gusto = (String) gustos.at(i);
+                graph.addGusto(gusto);
+                graph.insertarArista(userId, gusto);
             }
         }
-        catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-        finally {
-            try {
-                if (bw != null)
-                    bw.close();
-            }
-            catch (Exception ex) {
-                System.out.println("Error cerrando el BufferedWriter" + ex);
-            }
-        }
-        csvLines.clear();
     }
+
 
 }

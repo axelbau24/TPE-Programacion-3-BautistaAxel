@@ -40,4 +40,8 @@ public class Usuario implements Comparable<Usuario>{
     public int compareTo(Usuario o) {
         return id - o.getId();
     }
+
+    public LinkedListBeginning getGustos(){
+        return gustos;
+    }
 }

@@ -91,7 +91,7 @@ public class LinkedList implements List {
         if (i < size()) {
             Nodo n = firstNode;
             for (int j = 0; j < i; j++) n = n.getNext();
-            return n;
+            return n.getValue();
         }
         return null;
     }
