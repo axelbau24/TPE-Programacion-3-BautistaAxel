@@ -22,11 +22,11 @@ public class Main {
         Usuario u4 = new Usuario(new String[]{"67545565", "Tenis", "Futbol", "Golf", "Equitacion", "Handball"});
         Usuario u5 = new Usuario(new String[]{"65324548", "Equitacion", "Handball"});
 
+        grafo.addUsuario(Integer.toString(u5.getId()));
         grafo.addUsuario(Integer.toString(u1.getId()));
         grafo.addUsuario(Integer.toString(u2.getId()));
         grafo.addUsuario(Integer.toString(u3.getId()));
         grafo.addUsuario(Integer.toString(u4.getId()));
-        grafo.addUsuario(Integer.toString(u5.getId()));
 
         for (int i = 0; i < u1.getGustos().size(); i++) {
             String gusto = u1.getGustos().at(i).toString();
@@ -59,14 +59,13 @@ public class Main {
         }
 
 
-       // System.out.println(grafo.getLejano("5487866"));
+        System.out.println(grafo.getGustoMasGustado());
+
+        System.out.println(grafo.getLejano("5487866"));
+        
+        System.out.println(grafo.personasGustoComun("67545565"));
 
 
-      //  realizarPrueba(grafo, insertInputPath);
-        for (int i = 0; i < grafo.personasGustoComun("65324548").size(); i++) {
-            System.out.println(grafo.personasGustoComun("65324548").at(i));
-        };
-       // System.out.println(grafo.getLejano("5487866"));
     }
 
     public static void realizarPrueba(GrafoGustos graph, String dataSetPath) {
@@ -75,6 +74,4 @@ public class Main {
         csv.readCSV(dataSetPath); // Se agregan los usuarios al grafo
 
     }
-
-
 }

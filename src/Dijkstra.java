@@ -1,34 +1,34 @@
 public class Dijkstra {
 
-    private static Object origin = null;
+    private static Node origin = null;
     private static GrafoGustos graph;
 
-    private static void fillDistances(Object start, Object[] verts, int[] paths) {
-        for (Object v : verts) {
+    private static void fillDistances(Node start, Object[] verts, int[] paths) {
+        int startIndex = start.getId();
+        for (int i = 0; i < verts.length; i++) {
+            Object v = verts[i];
             if (graph.vecinos(start).contains(v) && !v.equals(origin)) {
-                int index = getIndex(v);
-                int startIndex = getIndex(start);
-                if (paths[startIndex] + 1 < paths[index] || paths[index] == 0) {
-                    paths[index] = paths[startIndex] + 1;
+                if (paths[startIndex] + 1 < paths[i] || paths[i] == 0) {
+                    paths[i] = paths[startIndex] + 1;
                 }
             }
         }
     }
 
 
-    public static int[] shortestPaths(Object startNode, GrafoGustos graph) {
+    public static int[] shortestPaths(Node startNode, GrafoGustos graph) {
         Dijkstra.graph = graph;
         Object[] vertices = graph.getVertices();
         int[] paths = new int[vertices.length];
 
-        Object[] nav = new Object[vertices.length];
+        Node[] nav = new Node[vertices.length];
 
         for (int i = 0; i < vertices.length; i++) {
-            nav[i] = vertices[i];
+            nav[i] = (Node) vertices[i];
         }
         origin = startNode;
 
-        for (int i = 0; i < vertices.length - 1; i++) {
+        for (int i = 0; i < vertices.length; i++) {
             fillDistances(startNode, nav, paths);
             int index = getClosestIndex(paths, nav);
             if (index != -1) {
@@ -55,11 +55,4 @@ public class Dijkstra {
 
     }
 
-    private static int getIndex(Object vertice) {
-        Object[] vertices = graph.getVertices();
-        for (int i = 0; i < vertices.length; i++) {
-            if (vertices[i].equals(vertice)) return i;
-        }
-        return -1;
-    }
 }

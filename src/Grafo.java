@@ -1,10 +1,8 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 // Grafo utilizando listas de adyacencia
-public class GrafoDirigido {
+public class Grafo {
 
     private ArrayList<Object>[] vList; // Lista de adyacencia, los vertices se controlan por su indice.
     protected Object[] vertices; // Vertice generico, el indice va a ser el mismo que en el de la lista
@@ -13,7 +11,7 @@ public class GrafoDirigido {
         return vertices;
     }
 
-    public GrafoDirigido() {
+    public Grafo() {
         vertices = new Object[0];
     }
 
@@ -86,8 +84,5 @@ public class GrafoDirigido {
         }
         return new ArrayList<>();
     }
-
-
-
 
 }
