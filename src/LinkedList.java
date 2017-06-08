@@ -1,4 +1,4 @@
-public class LinkedList implements List {
+public class LinkedList {
 
     protected Nodo firstNode;
     protected int size;

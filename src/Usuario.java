@@ -1,7 +1,7 @@
 
 public class Usuario implements Comparable<Usuario>{
 
-    private LinkedListBeginning gustos;
+    private LinkedList gustos;
     private int id;
 
     /**
@@ -11,7 +11,7 @@ public class Usuario implements Comparable<Usuario>{
      */
     public Usuario(String[] datos) {
         // Se utiliza una Lista Vinculada con insercion al principio para guardar los gustos.
-        gustos = new LinkedListBeginning();
+        gustos = new LinkedList();
         this.id = Integer.valueOf(datos[0]);
 
         for (int i = 1; i < datos.length; i++) {
@@ -41,7 +41,7 @@ public class Usuario implements Comparable<Usuario>{
         return id - o.getId();
     }
 
-    public LinkedListBeginning getGustos(){
+    public LinkedList getGustos(){
         return gustos;
     }
 }

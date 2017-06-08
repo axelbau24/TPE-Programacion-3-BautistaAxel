@@ -1,3 +1,4 @@
+import java.util.Hashtable;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -33,13 +34,13 @@ public class GrafoGustos extends Grafo {
      * Se crea un arista entre un usuario y un gusto y viceversa.
      *
      * @param userId ID del usuario
-     * @param gusto Gusto
+     * @param gusto  Gusto
      */
     public void insertarArista(String userId, String gusto) {
         if (existeUsuario(userId) && existeGusto(gusto)) {
 
-            Node user = new Node(userId, NodeType.USUARIO);
-            Node g = new Node(gusto, NodeType.GUSTO);
+            Node user = buscarDato(userId, NodeType.USUARIO);
+            Node g = buscarDato(gusto, NodeType.GUSTO);
 
             super.insertarArista(user, g);
             super.insertarArista(g, user);
@@ -74,10 +75,11 @@ public class GrafoGustos extends Grafo {
      * @return Si existe o no
      */
     private boolean existeDato(String dato, NodeType tipo) {
-        Node nodo = new Node(dato, tipo);
+        Node nodo = buscarDato(dato, tipo);
+        if (nodo == null) return false;
         for (Object o : vertices) {
             Node n = (Node) o;
-            if (nodo.equals(n)) return true;
+            if (n.equals(nodo)) return true;
         }
         return false;
     }
@@ -113,6 +115,7 @@ public class GrafoGustos extends Grafo {
 
     /**
      * Busca un Nodo en el grafo dado un dato y tipo de nodo.
+     *
      * @param dato Dato a buscar
      * @param tipo Tipo del nodo
      * @return El nodo deseado (Con ID)
@@ -163,13 +166,15 @@ public class GrafoGustos extends Grafo {
     public ArrayList<String> personasGustoComun(String user) {
         ArrayList<String> personas = new ArrayList<>();
 
-        Node usuario = new Node(user, NodeType.USUARIO);
-        List<Object> v = vecinos(usuario);
+        Node usuario = buscarDato(user, NodeType.USUARIO);
+        if (usuario != null) {
+            List<Object> v = vecinos(usuario);
 
-        for (Object o : vertices) {
-            Node n = (Node) o;
-            if (n.getType() == NodeType.USUARIO) {
-                if (!n.equals(usuario) && contains(v, vecinos(n))) personas.add(n.getValue());
+            for (Object o : vertices) {
+                Node n = (Node) o;
+                if (n.getType() == NodeType.USUARIO) {
+                    if (!n.equals(usuario) && contains(v, vecinos(n))) personas.add(n.getValue());
+                }
             }
         }
         return personas;
